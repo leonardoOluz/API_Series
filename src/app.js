@@ -3,7 +3,7 @@ import db from './config/dbConnect.js';
 
 db.on('error', console.log.bind(console, 'Erro de conexão!.'))
 db.once('open', () => {
-    console.log('Conexão feito com sucesso!.')
+    console.log('Connection succesfull')
 })
 
 const app = express();
