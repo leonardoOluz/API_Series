@@ -1,4 +1,5 @@
 import series from "./seriesRoutes.js";
+import seasons from './seasonsRoutes.js';
 import express from 'express';
 
 const routes = (app) => {
@@ -8,6 +9,7 @@ const routes = (app) => {
     app.use(
         express.json(),
         series,
+        seasons
     )
 }
 

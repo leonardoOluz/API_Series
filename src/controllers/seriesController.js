@@ -1,7 +1,7 @@
 import series from "../models/Serie.js";
 
 class serieController {
-    // Create - creating series object
+    // Create - series object
     static registerSeries = (req, res) => {
         let serie = new series(req.body)
         serie.save((err) => {
@@ -12,30 +12,32 @@ class serieController {
             }
         })
     }
-    static registerNewSeasonById = (req, res) =>{
+    static registerSeasonsSeriesById = (req, res) => {
         let id = req.params.id
-        console.log(req.body)
-        series.findByIdAndUpdate(id, {$push: req.body},(err, series) =>{
-            if(!err){
+        series.findByIdAndUpdate(id,{$push: req.body},(err, series) => {
+            if (!err) {
                 res.status(201).send(`season added successfully`)
-            }else{
-                res.status(400).send({message: `${err.message} Wrong serial id!.`})
+            } else {
+                res.status(400).send({message: `${err.message} Unable to add season, check id!.`})
             }
         })
     }
-    // Read - Series object reading
+    // Read - series object
     static listSeries = (req, res) => {
-        series.find((err, series) => {
-            if (!err) {
-                res.status(200).json(series);
-            } else {
-                res.status(500).send({ message: `${err.message} Erro!` })
-            }
-        })
+        series.find()
+            .populate('seasons')
+            .exec((err, series) => {
+                if (!err) {
+                    res.status(200).json(series);
+                } else {
+                    res.status(500).send({ message: `${err.message} Erro!` })
+                }
+            })
     }
     static listSeriesId = (req, res) => {
         let id = req.params.id
         series.findById(id)
+        .populate('seasons')
             .exec((err, series) => {
                 if (!err) {
                     res.status(200).json(series)
@@ -44,14 +46,25 @@ class serieController {
                 }
             })
     }
-    // Update - updating series object
+    // Update - series object
     static updatingSeriesId = (req, res) => {
         let id = req.params.id
-        series.findByIdAndUpdate(id,{$set: req.body},(err)=>{
+        series.findByIdAndUpdate(id, { $set: req.body }, (err) => {
             if (!err) {
                 res.status(200).send(`series updated successfully`)
-            }else{
-                res.status(400).send({ message: `${err.message} ID not found!.`})
+            } else {
+                res.status(400).send({ message: `${err.message} ID not found!.` })
+            }
+        })
+    }
+    // Delete - series object
+    static deleteObjectSeriesById = (req, res) => {
+        let id = req.params.id
+        series.findByIdAndDelete(id, (err) => {
+            if (!err) {
+                res.status(200).send(`Series deleted successfully`)
+            } else {
+                res.status(400).send({ message: `${err.message} check serial id!.` })
             }
         })
     }

@@ -7,7 +7,8 @@ router
   .get('/series', serieController.listSeries)
   .get('/series/:id', serieController.listSeriesId)
   .post('/series', serieController.registerSeries)
-  .post('/series/:id', serieController.registerNewSeasonById)
+  .post('/series/:id',serieController.registerSeasonsSeriesById)
   .put('/series/:id', serieController.updatingSeriesId)
+  .delete('/series/:id', serieController.deleteObjectSeriesById)
 
 export default router;

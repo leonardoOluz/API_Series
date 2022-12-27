@@ -8,11 +8,7 @@ const serieSchema = new mongoose.Schema(
         description: { type: String, required: true },
         starring: { type: String, required: true },
         creation: { type: String, required: true },
-        seasons: [{
-            title: {type: String},
-            trailerUrl: {type: String},
-            description: {type: String}
-        }]
+        seasons: [{type: mongoose.SchemaTypes.ObjectId, ref: 'seasons', required: false}]
     }
 )
 
