@@ -3,6 +3,7 @@ import express from 'express';
 
 const router = express.Router();
 
+// Utilize as rotas conforme os metodos a baixo
 router
   .get('/series', serieController.listSeries)
   .get('/series/:id', serieController.listSeriesId)
